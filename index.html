@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Carga Amarilla</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff; /* Fondo blanco */
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilo para el logo */
+        .logo {
+            width: 150px; /* Ajusta el tamaño del logo */
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        /* Contenedor de la barra de carga */
+        .loading-container {
+            width: 90%; /* Se adapta al 90% del ancho disponible */
+            max-width: 600px; /* Máximo 600px en pantallas grandes */
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Estilo de la barra de carga */
+        .loading-bar-wrapper {
+            width: 100%;
+            height: 30px; /* Altura de la barra */
+            background-color: #ddd;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0;
+            background-color: #FFEB3B; /* Barra amarilla */
+            border-radius: 15px;
+            transition: width 0.1s ease-in-out;
+        }
+
+        /* Porcentaje dentro de la barra */
+        .percentage {
+            font-size: 18px;
+            font-weight: bold;
+            color: white; /* Texto blanco */
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            line-height: 30px; /* Centra el texto verticalmente */
+            width: 100%;
+            text-align: center;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Texto de carga (fuera de la barra) */
+        .loading-text {
+            font-size: 18px;
+            color: #333;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Logo estático encima de la barra de carga -->
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmASlKCPYjwAaE49iGBH1CAyE1Mjl2_4jFtg&s" alt="Logo" class="logo">
+
+    <!-- Contenedor de la barra de carga -->
+    <div class="loading-container">
+        <!-- Barra de carga -->
+        <div class="loading-bar-wrapper">
+            <div class="loading-bar" id="loading-bar"></div>
+            <div class="percentage" id="percentage-text">0%</div>
+        </div>
+        
+        <!-- Texto de carga -->
+        <div class="loading-text" id="loading-text">Espere un momento.</div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const loadingBar = document.getElementById('loading-bar');
+            const loadingText = document.getElementById('loading-text');
+            const percentageText = document.getElementById('percentage-text');
+
+            // Muestra el texto de carga
+            setTimeout(() => {
+                loadingText.style.opacity = 1;
+            }, 500); // Aparece después de medio segundo
+
+            // Animación de la barra de carga (10 segundos)
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 1;
+                loadingBar.style.width = progress + '%';
+                percentageText.textContent = progress + '%';
+
+                // Mostrar el porcentaje dentro de la barra
+                percentageText.style.opacity = 1;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                }
+            }, 100); // La carga se incrementa cada 100ms
+
+            // Redirige después de 10 segundos
+            setTimeout(() => {
+                window.location.href = "https://www.ejemplo.com"; // Cambia el enlace según sea necesario
+            }, 10000); // 10 segundos
+        };
+    </script>
+
+</body>
+</html>
